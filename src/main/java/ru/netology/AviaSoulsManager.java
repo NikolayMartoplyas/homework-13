@@ -40,7 +40,6 @@ public class AviaSoulsManager {
      * @return Массив из подходящих билетов
      */
     public Ticket[] search(String from, String to) {
-        Arrays.sort(tickets);
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : tickets) {
             if (ticket.getFrom().equals(from)) { //совпадает аэропорт вылета
@@ -49,6 +48,7 @@ public class AviaSoulsManager {
                 }
             }
         }
+        Arrays.sort(result);
         return result;
     }
 
@@ -58,10 +58,10 @@ public class AviaSoulsManager {
             if (ticket.getFrom().equals(from)) { //совпадает аэропорт вылета
                 if (ticket.getTo().equals(to)) { // совпадает аэропорт прилёта
                     result = addToArray(result, ticket);
-                    Arrays.sort(result, comparator);
                 }
             }
         }
+        Arrays.sort(result, comparator);
         return result;
     }
 

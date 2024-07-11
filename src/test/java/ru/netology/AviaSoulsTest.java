@@ -17,7 +17,7 @@ public class AviaSoulsTest {
     Ticket ticket3 = new Ticket("Москва", "Геленджик", 2500, 10, 12);
     Ticket ticket4 = new Ticket("Анапа", "Москва", 8000, 12, 20);
     Ticket ticket5 = new Ticket("Анапа", "Москва", 5000, 06, 10);
-    Ticket ticket6 = new Ticket("Адлер", "ЕКБ", 5000, 07, 10);
+    Ticket ticket6 = new Ticket("Анапа", "ЕКБ", 5000, 07, 10);
 
     @BeforeEach
     public void setUp() {
@@ -46,6 +46,20 @@ public class AviaSoulsTest {
     }
 
     @Test
+    public void thereIsOneTicket() {
+        Ticket[] expected = {ticket6};
+        Ticket[] actual = soulsManager.search("Анапа", "ЕКБ");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void noTicketIsSuitable() {
+        Ticket[] expected = {};
+        Ticket[] actual = soulsManager.search("Краснодар", "Адлер");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
     public void comparisonOfTicketsByFlightTime() {
         TicketTimeComporator comporator = new TicketTimeComporator();
         Assertions.assertEquals(-1, comporator.compare(ticket2, ticket4));
@@ -60,4 +74,5 @@ public class AviaSoulsTest {
         Ticket[] actual = soulsManager.searchAndSortBy("Анапа", "Москва", comporator);
         Assertions.assertArrayEquals(expected, actual);
     }
+
 }
